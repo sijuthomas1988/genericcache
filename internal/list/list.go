@@ -51,40 +51,6 @@ func (l *List[T]) Len() int {
 	return l.len
 }
 
-// MoveToFront moves the given element to the front of the list.
-func (l *List[T]) MoveToFront(e *Node[T]) {
-	if e.list != l || l.root.next == e {
-		return
-	}
-	l.move(e, &l.root)
-}
-
-func (l *List[T]) move(e, at *Node[T]) *Node[T] {
-	if e == at {
-		return e
-	}
-	e.prev.next = e.next
-	e.next.prev = e.prev
-
-	e.prev = at
-	e.next = at.next
-	e.prev.next = e
-	e.next.prev = e
-
-	return e
-}
-
-// Remove removes the given element from the list.
-func (l *List[T]) Remove(e *Node[T]) T {
-	e.prev.next = e.next
-	e.next.prev = e.prev
-	e.list.len--
-	e.next = nil
-	e.prev = nil
-	e.list = nil
-	return e.Value
-}
-
 // InsertNewNode adds a new value to the front of the list.
 func (l *List[T]) InsertNewNode(value T) *Node[T] {
 	node := &Node[T]{Value: value}
@@ -106,4 +72,15 @@ func (l *List[T]) GetLastNode() *Node[T] {
 	}
 
 	return l.root.prev
+}
+
+// Remove removes the given element from the list.
+func (l *List[T]) Remove(e *Node[T]) T {
+	e.prev.next = e.next
+	e.next.prev = e.prev
+	e.list.len--
+	e.next = nil
+	e.prev = nil
+	e.list = nil
+	return e.Value
 }

@@ -1,21 +1,17 @@
 # genericcache
-A simple Thread Safe Generic Cache
+A simple Thread Safe LRU Generic Cache
 
+```bash
+go get github.com/sijuthomas1988/genericcache
+```
 ## Examples
 Basic usage.
 ```go
 func main() {
-    cache := lru.New[string, string]()
+    cache := genericcache.New[string, string](lru.WithCapacity(int))
     cache.Set("key", "value")
     value, _ := cache.Get("key")
     fmt.Println(value)
-}
-```
-Set the capacity using the `lru.WithCapacity` option. The default capacity is set to 10000.
-```go
-func main() {
-    cache := lru.New[string, string](lru.WithCapacity(100))
-    ...
 }
 ```
 

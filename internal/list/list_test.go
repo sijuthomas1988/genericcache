@@ -21,14 +21,11 @@ func TestPushRemove(t *testing.T) {
 	}
 }
 
-func TestMoveToFront(t *testing.T) {
+func TestInsertNode(t *testing.T) {
 	ll := NewList[int]()
 	e := ll.InsertNewNode(0)
 	ll.InsertNewNode(1)
 	require.Equal(t, e, ll.GetLastNode())
-
-	ll.MoveToFront(e)
-	require.NotEqual(t, e, ll.GetLastNode())
 }
 
 func TestInit(t *testing.T) {

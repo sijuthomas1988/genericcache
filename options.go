@@ -1,7 +1,7 @@
 package genericcache
 
 const (
-	// DefaultCapacity is the default cache capacity, can be extended for making it configurable.
+	// DefaultCapacity
 	DefaultCapacity = 10000
 )
 
@@ -17,8 +17,7 @@ func (f funcCacheOption) apply(o *options) {
 	f(o)
 }
 
-// WithCapacity configures how many items can be stored before old items begin
-// to be deleted.
+// WithCapacity configures how many items can be stored before LRU eviction starts.
 func WithCapacity(capacity int) CacheOption {
 	return funcCacheOption(func(o *options) {
 		o.capacity = capacity

@@ -48,15 +48,9 @@ func (c *Cache[K, V]) Len() int {
 }
 
 // Set the given key value pair.
-// This operation updates the recent usage of the item.
 func (c *Cache[K, V]) Set(key K, value V) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	if element, ok := c.items[key]; ok {
-		element.Value.value = value
-		c.ll.MoveToFront(element)
-		return
-	}
 
 	entry := entry[K, V]{
 		key:   key,
@@ -71,7 +65,6 @@ func (c *Cache[K, V]) Set(key K, value V) {
 }
 
 // Get an item from the cache.
-// This operation updates recent usage of the item.
 func (c *Cache[K, V]) Get(key K) (value V, ok bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
@@ -80,7 +73,6 @@ func (c *Cache[K, V]) Get(key K) (value V, ok bool) {
 		return
 	}
 
-	c.ll.MoveToFront(e)
 	return e.Value.value, true
 }
 
